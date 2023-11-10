@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="">
+
+        <select name="regions" id="regions" onchange="loadCountries()">
+            <option value="0" selected>Seleccione la Region</option>
+            <option value="Africa">Africa</option>
+            <option value="America">America</option>
+            <option value="Asia">Asia</option>
+            <option value="Europe">Europa</option>
+            <option value="Oceania">Oceania</option>
+            
+        </select>
+
+        <select name="countries" id="countries">
+            <option value="0" selected>Seleccione el Pais</option>
+            
+        </select>
+
+        <div id="paises">
+            
+        </div>
+
+    </form>
+    
+
+    <script>
+
+    const limpiarCountryFromRegions = () => {
+        var select = document.getElementById("countries");
+        for (let i = select.options.length; i >= 0; i--) {
+            select.remove(i);
+        }
+    };
+
+    const loadSelectCountries = async(datos)=> {        
+        var select = document.getElementById("countries");
+        var option = document.createElement("option");
+        datos.forEach(country => {            
+            var option = document.createElement('option');
+            var optionText = document.createTextNode(country.name.common);
+            option.appendChild(optionText)
+            option.setAttribute('value','Option Value');
+            select.appendChild(option); 
+        })        
+    }
+        
+    const Countries = async (params) => {
+        const json = {
+            region:params,
+        } 
+        try {                                    
+            fetch("https://restcountries.com/v3.1/region/"+json.region, {             
+                method: "GET",
+                headers: {
+                    Accept: "application/json", "Content-Type": "application/json",
+                }
+            }).then((response) => response.json())
+                .then((datos) => {  
+                    console.log(datos) ;                 
+                    loadSelectCountries(datos);
+
+                });
+        } catch (error) {
+            console.log("Error fetch Login Interno", error);
+        }
+        
+    }
+    
+
+    const loadCountries = () => {
+        var region = document.getElementById("regions");
+        if(region.selectedIndex > 0){
+            limpiarCountryFromRegions();            
+            Countries(region.options[region.selectedIndex].value);
+        }
+    }
+        
+
+        
+    </script>
+</body>
+</html>

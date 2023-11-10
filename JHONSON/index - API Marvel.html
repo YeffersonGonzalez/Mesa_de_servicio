@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Prueba</title>
+</head>
+<body>
+    <main><h2>Personajes de MARVEL</h2></main>
+    
+    <script type="text/javascript">
+     
+                let urlBase = "http://gateway.marvel.com/v1/public/";
+                let apiKey = "8456b8030d391a789d1287bdb5c5e7cd";
+                let hash = "059b4e56c2c3c3cab8474a3b0242ef26";
+                let ts = "1";
+
+                fetch(`${urlBase}characters?ts=${ts}&apikey=${apiKey}&hash=${hash}`)
+                  .then(response => response.json())
+                  .then(data => {
+                    let characters = data.data.results;
+                    characters.forEach(character => {
+                      const article = document.createRange().createContextualFragment(`
+                        <article>
+                          <div class="Image_container">
+                            <img src="${character.thumbnail.path}.${character.thumbnail.extension}" alt="" style="width:100%">
+                            <h2>${character.name}</h2>
+                          </div>
+                        </article>
+                      `);
+                      const main = document.querySelector("main");
+                      main.append(article);
+                    });
+                  });
+ </script>
+</body>
+</html>

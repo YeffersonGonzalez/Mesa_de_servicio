@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API ACTIVIDAD</title>
+    <style>
+        #productos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            list-style: none;
+            padding: 0;
+        }
+
+        #productos .producto {
+            width: 30%; /* Ancho de cada elemento para acomodar tres en una fila */
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        #productos .producto img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>PRODUCTOS</h1>
+   
+    <div id="productos">
+        <main ></main>
+    </div>
+
+    <script type="text/javascript">
+        function obtenerProductos(hecho) {
+            fetch('https://fakestoreapi.com/products')
+                .then(res => res.json())
+                .then(data => {
+                    hecho(data);
+                })
+                .catch(error => {
+                    console.error('Error al obtener los datos:', error);
+                });
+        }
+
+        obtenerProductos(data => {
+            const main = document.querySelector("main");
+
+            data.forEach(producto => {
+                const fragmentoProducto = document.createRange().createContextualFragment(`
+                    <div class="producto">
+                        <h2>${producto.title}</h2>
+                        <img src = "${producto.image}"alt="">
+                        <p>${producto.description}</p>
+                    </div>
+                `);
+                main.appendChild(fragmentoProducto);
+            });
+        });
+    </script>
+</body>
+</html>

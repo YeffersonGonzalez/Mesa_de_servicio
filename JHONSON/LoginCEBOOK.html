@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+  <body>
+
+    <h2>Add Facebook Login to your webpage</h2>
+<div class="fb-login-button" data-width="" data-size="large" data-button-type="" data-layout="" data-auto-logout-link="false" data-use-continue-as="false"></div>
+      
+        
+
+<fb:login-button scope="public_profile" onlogin="checkLoginState();">
+</fb:login-button>
+});
+ 
+  }
+
+
+
+          <script>
+          FB.getLoginStatus(function(response) {
+  if (response.status === 'connected') {
+    console.log(response.authResponse.accessToken);
+FB.api('/me', function(response) {
+    console.log(JSON.stringify(response));
+
+ 
+
+
+
+}); {
+  "id":"101540562372987329832845483",
+  "name":"Bob Smith"
+}{"data":
+  [
+    {
+      "permission":"public_profile",
+      "status":"granted"
+    },
+    {
+      "permission":"email",
+      "status":"granted"
+    }
+  ]
+}FB.login(
+  function(response) {
+    console.log(response);
+  },
+  {
+    scope: 'user_likes',
+    auth_type: 'rerequest'
+  }
+);
+    function statusChangeCallback(response) {  // Llamado cuando Facebook responde al estado de inicio de sesión.
+      if (response.status === 'connected') {   // Conectado a la app y Facebook.
+        console.log('Bienvenido!  Obteniendo tu información.... ');
+        FB.api('/me', function(response) {
+          console.log('¡Inicio de sesión exitoso para: ' + response.name);
+          document.getElementById('status').innerHTML =
+            '¡Gracias por iniciar sesión, ' + response.name + '!';
+          // Aquí puedes enviar los datos 'response' a tu base de datos
+        });
+      } else {
+        document.getElementById('status').innerHTML = 'Por favor inicia sesión.';
+      }
+    }
+
+    function checkLoginState() {               // Llamado cuando el usuario completa el cuadro de diálogo de inicio de sesión.
+      FB.getLoginStatus(function(response) {   // Ver el estado del inicio de sesión.
+        statusChangeCallback(response);
+      });
+    }
+  </script>
+
+  <!-- Carga la biblioteca JavaScript del SDK de Facebook. -->
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v10.0&appId=YOUR_APP_ID&autoLogAppEvents=1" nonce="YOUR_NONCE"></script>
+
+  <!-- Botón de inicio de sesión de Facebook -->
+  <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="true"></div>
+
+  <!-- Estado del inicio de sesión -->
+  <div id="status"></div>
+
+  </body>
+</html>

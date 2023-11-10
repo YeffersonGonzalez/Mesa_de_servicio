@@ -1,0 +1,9 @@
+1. butom y input
+
+2.Enviar datos por url. este metodo no usa el metodo get y post
+
+<a href="productos_editar.php?cp=<?php echo $rows['cod']; ?>" class="bnt btn-xs btn-info"><i class="fa fa-edit"></i></a> 
+
+Donde es un iperenlace como un buton, esto envia datos ademas las capturas de click
+
+3.Otro metodo para ennviar datos podemos utilizar el $_session y tambien guardar en una varable [] o por un archivo .xml

@@ -1,0 +1,100 @@
+
+.fondo{
+ 
+  align-items: center;
+  background-image: url('../imgs/fondoO2.JPG');
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  
+}
+
+.semi-transparent {
+  
+  align-items: center;
+  background: rgba(255, 255, 255, 0.5); /* Blanco semi-transparente */
+  padding: 20px;
+  border-radius: 20px;
+  align-content: center;
+}
+.b-white {
+  color: #595656;
+  text-shadow: 2px 2px 4px white;text-shadow: 2px 2px 4px white;
+}
+
+.card2{
+   
+  background: rgb(255, 255, 255);
+  border-top: 0;
+  color: #666;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+
+.login-page2,.register-page2{
+  -ms-flex-align: center;
+  align-items: center;
+  
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100vh;
+  -ms-flex-pack: center;
+  justify-content: center;}
+
+  .input{
+    background-color: #eee;
+    border: 1px solid #eee;
+    padding: 10px 15px;
+    border-radius: 10px 0px 0px 10px;
+    width: 86%;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+.input:focus {
+  border-color: #91e5eb;
+  outline: 0;
+}
+
+.input-group-text2 {
+  align-items: center;
+  padding: 0.75rem;
+  background-color: #eee;
+  border: none;
+  border-radius: 0px 10px 10px 0px ;
+}
+
+.boton{
+  display: -ms-flexbox;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #91e5eb;
+  border: none;
+  border-radius: 10px;
+}
+
+.register-box2 {
+  margin-top: 5rem;
+    width: 30%;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: #939ba2;
+  opacity: 1;
+}
