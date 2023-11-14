@@ -2,34 +2,34 @@
     include "../controllers/controller_consultas_api.php";
 
 
-    class productoAPI{
+    class ProductoAPI{
 
         function getAllProductos(){
             $objDB = new ExtraerDatos();
             $data = array();
 
-            if (isset($_GET["id"])){
-                $data = $objDB->productosDetalle($_GET["id"]);
-            }else{
+           
                 $data = $objDB->listadoProducto();
-            }
+           
 
             $producto = array();
-            $producto["data"] = array();
+            $producto["datos"] = array();
 
             if($data){
                 foreach($data as $row){
                     $item = array(
-                        "code" => $row["id"],
-                        "id" => $row["referencia"], 
-                        "name" => $row["nombre"],
-                        "addr" => $row["descripcion"],
-                        "phone" => $row["cantidad"],
-                        #"dateb" => $row["fchnac"],
-                        "photo" => $row["foto"],
-                        #"profile" => $row["perfil"]
+                        "code" => $row["cod"],
+                        "refer" => $row["referencia"],                    
+                        "descrip" => $row["descripcion"],
+                        "cant" => $row["cantidad"],
+                        "valor" => $row["valorcomercial"],
+                        "tipoPC" => $row["tipoPC"],
+                        "pantalla" => $row["pantalla"],
+                        "discoduro" => $row["discoduro"],
+                        "ram" => $row["ram"],
+                        "id" => $row["id"],
                     );
-                    array_push($producto["data"], $item);                
+                    array_push($producto["datos"], $item);                
                 }
                 $producto["msg"] = "OK";
                 $producto["error"] = "0";
@@ -40,15 +40,15 @@
             }
         }
 
-        function saveProducto(){
+        function saveCliente(){
             echo json_encode(array("data"=>null, "error"=>"0", "msg"=>"Guardar", ));
         }
 
-        function updateProducto(){
+        function updateCliente(){
             echo json_encode(array("data"=>null, "error"=>"0", "msg"=>"Actualizar", ));
         }
 
-        function deleteProducto(){
+        function deleteCliente(){
             echo json_encode(array("data"=>null, "error"=>"0", "msg"=>"Eliminar", ));
         }
 

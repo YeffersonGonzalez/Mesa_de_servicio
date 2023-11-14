@@ -3,40 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Prueba</title>
+    <title>Datos de la API</title>
 </head>
 <body>
-    <main><h2>Productos</h2></main>
-    
-    <script type="text/javascript">
-        
-     function getCharacters(done) {
-      fetch("https://fakestoreapi.com/products")
-       
-        .then(response=>response.json())
-        .then(data=>{
-        done(data);
-      })
-    }
+    <h2>Datos de la API</h2>
+    <ul id="datos"></ul>
 
-   getCharacters(data => {
-    data.forEach(producto => {
-        const article = document.createRange().createContextualFragment(`
-            <article>
-                <div class="Image_container">
-                    <img src="${producto.image}" alt="" style="width:100%">
-                    <h2> ${producto.title}</h2>
-                </div>
-            </article>
-        `);
+    <script>
+        fetch('http://localhost/web_electiva_II_BASE/api/producto_api.php')
+            .then(response => response.json())
+            .then(data => {
+                const datosUl = document.getElementById('datos');
+                data.datos.forEach(producto => {
+                    const productoLi = document.createElement('div');
+                    
+                    productoLi.textContent = 
+                   
+                    `Código: ${producto.code}, Nombre: ${producto.name}, Descripción: ${producto.descrip}, Cantidad: ${producto.cantidad}`;
+                    datosUl.appendChild(productoLi);
 
-        const main = document.querySelector("main");
-        main.append(article);
-       });
-    });
-                
-             
- </script>
+                    
+                });
+            })
+            
+    </script>
+                      <script>
+                      .catch(error => console.error('Error:', error));</script>
 </body>
 </html>

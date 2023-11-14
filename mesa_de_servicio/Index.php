@@ -55,7 +55,7 @@ if(isset($_SESSION['rl']))
                    if($objTools->userAuthorizad($_SESSION['rl'], 1) || $objTools->userAuthorizad($_SESSION['rl'], 2)){
                  ?>
               <div class="card-header border-transparent">
-                <h3 class="card-title">Latest Orders</h3>
+                <h3 class="card-title">Ordenes Creadas</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -74,7 +74,7 @@ if(isset($_SESSION['rl']))
                     <tr>
                       <th>Order ID</th>
                       <th>Item</th>
-                      <th>Status</th>
+                      <th>Estado</th>
                       <th>Popularity</th>
                     </tr>
                     </thead>

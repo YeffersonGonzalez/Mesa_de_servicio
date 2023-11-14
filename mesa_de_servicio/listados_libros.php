@@ -15,6 +15,7 @@ if(isset($_SESSION['rl'])){
 	<title></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
+  <link rel="stylesheet" href="../css/fondo.css">
   <link rel="stylesheet" href="../templates/AdminLTE-3.0.5/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -53,7 +54,7 @@ if(isset($_SESSION['rl'])){
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Productos</h1>
+            <h1></h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -67,31 +68,47 @@ if(isset($_SESSION['rl'])){
 
     <!-- Main content -->
     <section class="content">
+    <div class="row d-none d-print-block"><!-- fila contenedora -->
+        <div class="col-md-12"> <!-- fin columna de contenido -->
+        
+          <div class="card">                      
+            <!-- Para controles de formularios siempre usar etiqueta FORM -->
+            <div class="card-body">
+              <img src="../imgs/fondoO.JPG" width="100%">
+            </div>  <!-- /.fin card-body -->
+          </div>
+        
+        </div> <!-- ./ fin col -->
+      </div><!-- ./ fin row -->
 
+      
               <div class="row">
                 <!-- COLUMNA DE TABLA DE DATOS  -->
                 <div class="col-md-12"><!--  -->
 
                   <div  class="card">
                     <div class="card-header bg-indigo">
-                        <h3 class="card-title">Datos en Tabla</h3>
+                        <h3  class="card-title ">Listado de libros registrados</h3>
                       </div>
                       <!-- /.card-header -->
                       <div class="card-body p-0">
                        <table  class="table table-striped">
                           <thead>
                             <tr>
-                              <th >COD</th>
-                              <th >REFERENCIA</th>
-                              <th >DESCRIPCION</th>
-                              <th >CANTIDAD</th>
-                              <th >VALOR C.</th>
-                              <th >TIPO</th>
-                              <th >PANTALLA</th>
-                              <th >DISCO DURO</th>
-                              <th >RAM</th>
-                              <th >ID</th>
-                              <th >Accion</th>
+                            
+                              <th style="width: 6%" >ID</th>
+                              <th style="width: 10%">ISBN</th>
+                              <th style="width: 13%">TITULO</th>
+                              <th style="width: 8%">AUTOR</th>
+                              
+                              
+                              <th style="width: 3%">EDICION</th>
+                              <th style="width: 0%">EJEMPLARES</th>
+                              <th style="width: 15%">CATEGORIA</th>
+                              <th style="width: 18%">DESCRIPCION</th>
+                              <th style="width: 7%">ESTADO</th>
+                              <th style="width: 0%">DETALLES</th>
+                              
                             </tr>
                           </thead>
                           </table>
@@ -102,37 +119,41 @@ if(isset($_SESSION['rl'])){
                         
                          <script>
                            function obtenerDatos() {
-                              return fetch('http://localhost/web_electiva_II_BASE/api/producto_api.php')
+                              return fetch('http://localhost/web_electiva_II_BASE/api/libros_listado_api.php')
                                 .then(response => response.json())
                                  .catch(error => console.error('Error:', error));
                              }
 
                             function mostrarDatos(data) {
                                const datosUl = document.getElementById('datos');
-                               data.datos.forEach(producto => {  
-                                const fragmentoProducto = document.createRange().createContextualFragment(`
-                            <table  class="table ">
+                               data.datos.forEach(libro => {  
+                                const fragmentoLibro = document.createRange().createContextualFragment(`
+                            <table  class="table">
                               <tbody>
                               <tr>
-                              <td style="width:2%"></td>
-                              <td style="width: 5%">${producto.code}</td>
-                              <td style="width: 12%">${producto.refer}</td>
-                              <td style="width: 15%">${producto.descrip}</td>  
-                              <td style="width: 9%">${producto.cant}</td>
-                              <td style="width: 10%">${producto.valor}</td>
-                              <td style="width: 8%">${producto.tipoPC}</td>
-                              <td style="width: 10%">${producto.pantalla}</td>
-                              <td style="width: 10%">${producto.discoduro}</td>
-                              <td style="width: 6%">${producto.ram}</td>
-                              <td style="width: 5%">${producto.id}</td>
+                              <td style="width: 0% "></td>
+                              <td style="width: 1% ">${libro.id}</td>
+                              <td style="width: 2%">${libro.isbn}</td>
+                              <td style="width: 16%">${libro.titulo}</td>  
+                              <td style="width: 10%">${libro.autor}</td>
+                              
+                              
+                              <td style="width: 10%">${libro.edicion}</td>
+                              <td style="width: 8%">${libro.ejemplar}</td>
+                              <td style="width: 12%">${libro.categoria}</td>
+                              <td style="width: 24%">${libro.descrip}</td>
+
+                              <td style="width: 10%">${libro.estado}</td>
+
+                              
                               <td style="width: 10%"">
-                                <a href="productos_editar.php?cp=${producto.code}" class="bnt btn-xs btn-info"><i class="fa fa-edit"></i></a>
-                                <a href="productos_eliminar.php?cp=${producto.code}" class="bnt btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                <a href="productos_informes2.php?cp=${libro.id}" class="bnt btn-xs btn-info"><i class="fas fa-eye"></i></a>
+                                
                               </td>
                             </tr>    
                             </tbody>
                             </table> 
-                            `);datos.appendChild(fragmentoProducto);
+                            `);datos.appendChild(fragmentoLibro);
                                });
                                  } obtenerDatos().then(mostrarDatos);
                           </script>  

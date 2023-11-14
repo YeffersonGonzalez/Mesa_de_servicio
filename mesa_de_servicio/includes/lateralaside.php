@@ -51,8 +51,14 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Crear Producto</p>
                 </a>
+              </li><?php }?>
+              <li class="nav-item">
+                <a href="listados_libros.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Listado de libros</p>
+                </a>
               </li>
-              <?php }?>
+              
 
 
 

@@ -123,11 +123,11 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown ">
       <a class="nav-link" data-toggle="dropdown" href="#">
         <i class="far fa-user"></i>
       </a>
-      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+      <div class="dropdown-menu  ">
         <span class="dropdown-item dropdown-header"><?php echo $_SESSION['us']; ?>, rol <?php echo $_SESSION['rl']; ?></span>
         
         <div class="dropdown-divider"></div>
@@ -135,8 +135,9 @@
           <i class="fas fa-user mr-2"></i> Editar 
         </a>
         <div>
-        <input type="button" value="Cerrar Sesión" onclick="closeSession()" class="dropdown-item dropdown-footer"></inpu>
-</div>
+        <input type="button" value="Cerrar Sesión" onclick="closeSession()" class="dropdown-item dropdown-footer"></input>
+        </div>
+      </div>
 
       
     </li>

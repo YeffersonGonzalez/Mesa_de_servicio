@@ -69,6 +69,13 @@ class ExtraerDatos extends ConsultasDB
 		$lista = $this->consulta_generales($sql);	
 		return $lista;
 	}
+	function listadoLibros($start=0, $regsCant = 0){
+		$sql = "SELECT * FROM libros";
+		if ($regsCant > 0 )
+			 $sql = "SELECT * from libros $start,$regsCant";
+		$lista = $this->consulta_generales($sql);	
+		return $lista;
+	}
 
 }//fin CLASE
 
