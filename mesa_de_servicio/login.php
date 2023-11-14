@@ -117,10 +117,6 @@ session_start();
        <!--
       <div  class="social-auth-links text-center mb-3">
         <p>- OR -</p>
-
-        
-        
-
          <script src="https://apis.google.com/js/platform.js" async defer></script>
          
           <div class="g-signin2" data-onsuccess="onSignInWithProfile">Iniciar sesión con Google</div>

@@ -207,7 +207,6 @@ if(isset($_SESSION['rl']))
                       <input type="text" class="form-control" id="txt_refer" name="txt_refer" placeholder="Referencia">
                     </div> 
                   </div>
-                   
                   <div class="col-md-6 col-sm-6 col-12">
                     <div class="form-group">
                       <label>Tipo de Equipo</label>
