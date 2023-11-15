@@ -54,7 +54,7 @@
               $nombr = $_POST["txt_user"];
               $corre = $_POST["txt_correo"]; 
               $$hashedPassword = $_POST["txt_clave"];
-              $rol= "3";
+              $rol=$_POST["tipoR"];
                
 
               //Verificamos que el usuario halla seleccionado archivos
@@ -88,7 +88,8 @@
 
       
           <form role="form" name="frm_registrar" id="frm_registrar" method="POST" action="registrar.php" enctype="multipart/form-data">
-          <div class="row"><div class="col-md-6 col-sm-6 col-6">
+          <div class="row">
+                  <div class="col-md-6 col-sm-6 col-6">
                     <div class="form-group">
                       
                       <input type="Number" class="form-control" id="txt_cc" name="txt_cc" placeholder="Cedula">
@@ -96,7 +97,7 @@
                   </div>  
 
                   <!-- Control Inputbox ejemplo -->
-                  <div class="col-md-6 col-sm-6 col-6">
+                  <div class="input-group col-md-6 col-sm-6 col-6">
                     <div class="form-group">
                       
                       <input  type="text" class="form-control" id="txt_Nombre" name="txt_Nombre" placeholder="Nombre y Apellido">
@@ -105,7 +106,7 @@
                               
 
                  <!-- Control cantidad  -->
-                  <div class="col-md-6 col-sm-6 col-6">
+                  <div class="input-group col-md-6 col-sm-6 col-6">
                     <div class="form-group">
                      
                       <input type="text" class="form-control" id="txt_direc" name="txt_direc" placeholder="Direccion">
@@ -113,12 +114,13 @@
                   </div> 
 
                   <!-- Control VALOR -->
-                  <div class="col-md-6 col-sm-6 col-6">
+                  <div class="input-group col-md-6 col-sm-6 col-6">
                     <div class="form-group">
                      
                       <input type="Number" class="form-control" id="txt_Tele" name="txt_Tele" placeholder="Telefono">
                     </div> 
                   </div> 
+
             <div class="input-group mb-3 col-md-6 col-sm-6 col-6">
 
               <input required type="text" class="form-control" id="txt_user" name="txt_user" placeholder="User">
@@ -153,8 +155,25 @@
                   </div>
                 </div>
               </div>
-              <p></p>
-                <div class="col-8">
+              <div class="input-group mb-3 col-md-6 col-sm-6 col-6">
+                
+              <div class="form-group">  
+
+                  <div class="input-group-append">
+                    <select class="form-control" name="tipoR" id="tipoR">
+                        <option value="3">Usuario</option>
+                        <option value="2">Admin N-2</option>
+                        <option value="1">Admin N-1</option>           
+                    </select>
+                    <div class="input-group-text"> 
+                      <span class="fas fa-user"></span>
+                    </div>
+                 </div>
+                      
+                   </div> 
+              </div>
+            
+                <div class=" col-md-6 col-sm-6 col-6">
                   <div class="icheck-primary">
                     <input required  type="checkbox" id="agreeTerms" name="terms" value="agree">
                     <label for="agreeTerms"></label>
