@@ -1,8 +1,14 @@
-<?php   
-  require ("../models/models_admin.php");
-  include "../controllers/controller_consultas_backend.php";  
-  date_default_timezone_set("America/Bogota");
+<?php
+session_start(); 
+if(isset($_SESSION['rl'])){
+  
+  
+  include ("../models/tools.php");
+  $objTools = new webtools();
+  include "../controllers/controller_consultas_backend.php";
 ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -202,3 +208,19 @@ if(isset($_GET["cp"])){//URL PERFECTA
 
 </body>
 </html>
+<?php
+}else{ // RECURSO RESTRINGIDO
+    ?>
+
+    <script>
+      window.location.href = "login.php";
+    </script>
+
+    <!-- <div class="callout callout-danger">
+      <h5>Acceso Indebido!</h5>
+      <p>Usted no tiene permisos para acceder a esta área. </p>
+    </div>
+-->
+<?php   
+}
+?>

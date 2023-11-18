@@ -33,6 +33,12 @@ class ExtraerDatos extends ConsultasDB
 		$lista = $this->consulta_generales($sql);	
 		return $lista;
 	}
+	function productosDetalles($idu){
+		$sql = "SELECT * from producto where id=$idu ";
+		$lista = $this->consulta_generales($sql);	
+		return $lista;
+	}
+	
 
 
 
@@ -86,6 +92,23 @@ class ExtraerDatos extends ConsultasDB
 	
      function consultaLogin($usu){
 		$sql = "SELECT * from usuario where user='$usu' ";
+		$lista = $this->consulta_generales($sql);	
+		return $lista;
+	}
+	function consultaUser($usu){
+		$sql = "SELECT * from usuario where id='$usu' ";
+		$lista = $this->consulta_generales($sql);	
+		return $lista;
+	}
+	function librosDetalle($idu){
+		$sql = "SELECT * from libros where id=$idu ";
+		$lista = $this->consulta_generales($sql);	
+		return $lista;
+	}
+	function listadoLibros($start=0, $regsCant = 0){
+		$sql = "SELECT * FROM libros";
+		if ($regsCant > 0 )
+			 $sql = "SELECT * from libros $start,$regsCant";
 		$lista = $this->consulta_generales($sql);	
 		return $lista;
 	}

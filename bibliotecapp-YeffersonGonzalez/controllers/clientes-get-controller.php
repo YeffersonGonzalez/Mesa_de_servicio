@@ -13,48 +13,30 @@ class ConsultasDB extends DBConfig {
   		$this->close();		
 		return $records;				
 	}
-
 }
 
-
-/**
-* IMPLEMENTACION DE ACCESO A CONSULTAS PARA PROTEGER MAS LA VISTA
-*/
-class ExtraerDatos extends ConsultasDB
+class clientesGetController extends ConsultasDB
 {
-			
-
 	// ****************************************************************************
 	// Agregue aqui debajo el resto de Funciones - Se ha dejado  Listado y detalle
 	// ****************************************************************************
-    //MUESTRA LISTADO DE EMPLEADOS
-	function listadoEmpleados($start=0, $regsCant = 0){
-		$sql = "SELECT * FROM empleados";
+    //MUESTRA LISTADO DE CLIENTES
+	function listadoClientes($start=0, $regsCant = 0){
+		$sql = "SELECT * FROM Clientes";
 		if ($regsCant > 0 )
-			 $sql = "SELECT * from empleados $start,$regsCant";
+			 $sql = "SELECT * from Clientes $start,$regsCant";
 		$lista = $this->consulta_generales($sql);	
 		return $lista;
 	}
-	// DETALLE DE EMPLEADOS SELECICONADA SEGUN ID
-	function empleadosDetalle($idu){
-		$sql = "SELECT * from empleados where codigo=$idu ";
+	// DETALLE DE Clientes SELECICONADA SEGUN ID
+	function ClientesById($idu){
+		$sql = "SELECT * from Clientes where id=$idu ";
 		$lista = $this->consulta_generales($sql);	
 		return $lista;
-	}
-
-	function listadoCliente($start=0, $regsCant = 0){
-		$sql = "SELECT * FROM cliente";
-		if ($regsCant > 0 )
-			 $sql = "SELECT * from cliente $start,$regsCant";
-		$lista = $this->consulta_generales($sql);	
-		return $lista;
-	}
-	
-
-
-
-
+	}	
 	
 }//fin CLASE
+
+
 
 ?>

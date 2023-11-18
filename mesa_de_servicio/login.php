@@ -52,6 +52,7 @@ session_start();
               $_SESSION['us'] = $user[0]["user"];
               $_SESSION['rl'] = $user[0]["rol"];
               $_SESSION['img'] = $user[0]["img"];
+              $_SESSION['id'] = $user[0]["id"];
               //Vaerificamos quien se conecto
               if($user[0]["tipo"==3]) 
                 $idu = $user[0]["id"]; 

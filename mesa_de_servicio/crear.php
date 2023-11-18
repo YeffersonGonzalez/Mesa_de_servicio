@@ -88,7 +88,7 @@ if(isset($_SESSION['rl']))
             <!-- Para controles de formularios siempre usar etiqueta FORM -->
 
             <?php 
-            if(isset($_POST["txt_cc"])){//verificar la existencia de envio de datos
+            if(isset($_POST["txt_refer"])){//verificar la existencia de envio de datos
 
               $cedu = $_POST["txt_cc"];
               $nombre = $_POST["txt_Nombre"];
@@ -102,6 +102,7 @@ if(isset($_SESSION['rl']))
               $tipoA = $_POST["tipoAl"];
               $tipoR = $_POST["tipoRam"];
               $vlrcm = $_POST["txt_vlrCom"];   
+              $idusu = $_SESSION['id'];  
 
               //Verificamos que el usuario halla seleccionado archivos
               //y se procede a subir al servidor y elazarlo a la base de datos    
@@ -142,8 +143,8 @@ if(isset($_SESSION['rl']))
 
               $ejecucion = $objDBO->Operaciones("INSERT INTO cliente(cedula, nombre, direccion, telefono) 
                                                              values('$cedu','$nombre', '$direcc', '$tele')  ");
-              $ejecucion = $objDBO->Operaciones("INSERT INTO producto(referencia, descripcion, cantidad, valorcomercial, tipoPC, pantalla, discoduro, ram) 
-                                                                values('$refer', '$descr', $canti, $vlrcm,'$tipo','$tipoP','$tipoA','$tipoR' )  ");
+              $ejecucion = $objDBO->Operaciones("INSERT INTO producto(referencia, descripcion, cantidad, valorcomercial, tipoPC, pantalla, discoduro, ram, id) 
+                                                                values('$refer', '$descr', $canti, $vlrcm,'$tipo','$tipoP','$tipoA','$tipoR','$idusu' )  ");
 
               if($ejecucion){ // Tod se ejecuto correctamente
                 echo "<div class='alert alert-success'>

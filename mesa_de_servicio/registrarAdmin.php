@@ -1,42 +1,92 @@
-<?php 
+<?php
+session_start(); 
+if(isset($_SESSION['rl'])){
+
+  include ("../models/tools.php");
+  $objTools = new webtools();
   require ("../models/models_admin.php");
   date_default_timezone_set("America/Bogota");
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="google-signin-client_id" content="105259260269-qaaa6s2vk8cm51lsg0mm7l3hed1ibulf.apps.googleusercontent.com">
-  
-  <title>OSIRIS | Log in</title>
-  <!-- Tell the browser to be responsive to screen width -->
+  <title></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../css/fondo.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../templates/AdminLTE-3.0.5/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="../templates/AdminLTE-3.0.5/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
+  <link rel="stylesheet" href="../css/fondo.css">
   <link rel="stylesheet" href="../templates/AdminLTE-3.0.5/dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../templates/AdminLTE-3.0.5/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
 </head>
-<body class="fondo col-md-12 col-sm-12 col-12">
-<div class="register-box2 semi-transparent hold-transition col-md-4 col-sm-8 col-12">
-    <div class="login-logo " >
-      <b class="b-white">OSIRIS
-      <br><h5>Mesa de servicio</h5></b>
-    </div>
-    <!-- /.login-logo -->
+<body class="sidebar-collapse sidebar-mini">
 
-   
-    <div class="card2 ">
-      
-      <?php 
+<?php include "includes/config.php"; ?>
+<?php
+if(isset($_SESSION['rl'])) 
+?>
+
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand <?php echo $headerStyle; ?>">
+    <?php 
+      include "includes/header.php";
+    ?>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar <?php echo $lateralStyle; ?> elevation-4">
+    <?php 
+    include "includes/lateralaside.php";
+     ?>
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-11">
+            <h1 align="center">Crear Usuarios</h1>
+          </div>
+          <div class="col-sm-0">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item active">Crear</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <div class="row">
+        
+ <!-- COLUMNA DE FORMULARIO  -->
+      <div class="col-md-3"></div>
+        <div class="col-md-5"><!-- columna de contenido -->
+          
+          
+            <!-- /.card-header -->
+            <div class="boton">
+              <h4 >Crear nuevo Usuario</h4>
+            </div>
+            <div class="card2">
+            
+            
+            
+            <!-- Para controles de formularios siempre usar etiqueta FORM -->
+            <?php 
         // Obtén la contraseña del formulario
         $password = $_POST['txt_clave'];
 
@@ -54,7 +104,7 @@
               $nombr = $_POST["txt_user"];
               $corre = $_POST["txt_correo"]; 
               $$hashedPassword = $_POST["txt_clave"];
-              $rol="3";
+              $rol=$_POST["tipoR"];
                
 
               //Verificamos que el usuario halla seleccionado archivos
@@ -86,9 +136,9 @@
             }
             ?>
 
-      
-          <form role="form" name="frm_registrar" id="frm_registrar" method="POST" action="registrar.php" enctype="multipart/form-data">
-          <div class="row">
+              
+<form role="form" name="frm_registrar" id="frm_registrar" method="POST" action="registrarAdmin.php" enctype="multipart/form-data">
+          <div class="row card2">
                   <div class="col-md-6 col-sm-6 col-6">
                     <div class="form-group">
                       
@@ -97,7 +147,7 @@
                   </div>  
 
                   <!-- Control Inputbox ejemplo -->
-                  <div class="col-md-6 col-sm-6 col-6">
+                  <div class=" col-md-6 col-sm-6 col-6">
                     <div class="form-group">
                       
                       <input  type="text" class="form-control" id="txt_Nombre" name="txt_Nombre" placeholder="Nombre y Apellido">
@@ -106,7 +156,7 @@
                               
 
                  <!-- Control cantidad  -->
-                  <div class="col-md-6 col-sm-6 col-6">
+                  <div class=" col-md-6 col-sm-6 col-6">
                     <div class="form-group">
                      
                       <input type="text" class="form-control" id="txt_direc" name="txt_direc" placeholder="Direccion">
@@ -156,41 +206,38 @@
                 </div>
               </div>
               
-              
+              <div class=" mb-3 col-md-6 col-sm-6 col-6">
+                
+              <div class="form-group">  
+
+                  <div class="input-group-append">
+                    <select class="form-control" name="tipoR" id="tipoR">
+                        <option value="3">Usuario</option>
+                        <option value="2">Admin N-2</option>
+                        <option value="1">Admin N-1</option>           
+                    </select>
+                    <div class="input-group-text"> 
+                      <span class="fas fa-user"></span>
+                    </div>
+                 </div>
+                      
+                   </div> 
+              </div>
             
-                <div class=" col-md-8 col-sm-8 col-8">
-                  <div class="icheck-primary">
-                    <input required  type="checkbox" id="agreeTerms" name="terms" value="agree">
-                    <label for="agreeTerms"></label>
-                     Acepto los <a href="#">terminos</a>
-                  </div>
-                </div>
+                
                 <!-- /.col -->
-                <div class="col-md-4 col-sm-4 col-4">
-                  <button type="submit"  class="boton btn-block">Registrar</button>
+                <div class="col-2">
+                  
+                </div>
+                <div class="col-4">
+                  <button type="submit"  class="boton btn-block ">Registrar</button>
                 </div>
                 <!-- /.col -->
               </div>
-              <p></p>
-              <b>
-              <a  href="login.php" class="text-center b-white">Regresar a la pagina de inicio</a>
-          </b>
+
           </form>
-
-              <!--
-            <div class="social-auth-links text-center">
-              <p>- OR -</p>
-              <a href="#" class="btn btn-block btn-primary">
-                <i class="fab fa-facebook mr-2"></i>
-                Sign up using Facebook
-              </a>
-              <a href="#" class="btn btn-block btn-danger">
-                <i class="fab fa-google-plus mr-2"></i>
-                Sign up using Google+
-              </a>
-            </div>-->
-
-      <script>
+         
+          <script>
       document.getElementById('frm_registrar').addEventListener('submit', function(event) {
         var clave = document.getElementById('txt_clave').value;
         var claveRepeat = document.getElementById('txt_clave_repetida').value;
@@ -208,20 +255,64 @@
       });
       </script>
       
+        </div>
+
+      </div>
+      
+      
+    </section>
+    <!-- /.content -->
   </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <?php 
+      include "includes/footer.php";
+     ?>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
 
 
 
-<!-- /.register-box -->
 
 <!-- jQuery -->
 <script src="../templates/AdminLTE-3.0.5/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../templates/AdminLTE-3.0.5/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../templates/AdminLTE-3.0.5/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../templates/AdminLTE-3.0.5/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../templates/AdminLTE-3.0.5/dist/js/adminlte.min.js"></script>
+<script src="../templates/AdminLTE-3.0.5/dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="../templates/AdminLTE-3.0.5/dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../templates/AdminLTE-3.0.5/dist/js/demo.js"></script>
 
 </body>
 </html>
+<?php
+}else{ // RECURSO RESTRINGIDO
+    ?>
+
+    <script>
+      window.location.href = "login.php";
+    </script>
+
+    <!-- <div class="callout callout-danger">
+      <h5>Acceso Indebido!</h5>
+      <p>Usted no tiene permisos para acceder a esta área. </p>
+    </div>
+-->
+<?php   
+}
+?>

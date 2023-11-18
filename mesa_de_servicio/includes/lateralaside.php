@@ -42,6 +42,12 @@
                   <p>Crear CLiente y Producto</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="registrarAdmin.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Crear usuarios</p>
+                </a>
+              </li>
               <?php }?>
               <?php
               if($objTools->userAuthorizad($_SESSION['rl'], 3)){

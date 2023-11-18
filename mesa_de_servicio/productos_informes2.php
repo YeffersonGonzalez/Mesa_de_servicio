@@ -1,11 +1,12 @@
 <?php
 session_start(); 
 if(isset($_SESSION['rl'])){
-
+  
   include ("../models/tools.php");
   $objTools = new webtools();  
   require ("../models/models_admin.php");
-  include "../controllers/controller_consultas_backend.php";  
+  include ("../controllers/controller_consultas_backend.php"); 
+  
   date_default_timezone_set("America/Bogota");
 ?>
 <!DOCTYPE html>
@@ -71,7 +72,7 @@ if(isset($_SESSION['rl'])){
     $prods = array();
 
      if(isset($_POST["txtBuscar"])){ //se filtro algo
-      $prods = $objDB->productosDetalle($_POST["txtBuscar"]); //filtramos coincidencia
+      $prods = $objDB->librosDetalle($_POST["txtBuscar"]); //filtramos coincidencia
       //filtramos coincidencia
        
      }elseif(isset($_GET["cp"])){//URL PERFECTA
@@ -79,9 +80,9 @@ if(isset($_SESSION['rl'])){
       $objDBC = new ExtraerDatos();
 
       $prods = array();
-      $prods = $objDBC->productosDetalle($_GET["cp"]);}
+      $prods = $objDBC->librosDetalle($_GET["cp"]);}
 
-     else{$prods = $objDB->listadoProductos();}
+     else{$prods = $objDB->listadoLibros();}
       //traemos todo
       
   ?>

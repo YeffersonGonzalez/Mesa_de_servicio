@@ -52,13 +52,13 @@ if(isset($_SESSION['rl'])){
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Informe de Servicios</h1>
+          <div class="col-sm-11">
+            <h1 align="center">Datos Registrados</h1>
           </div>
-          <div class="col-sm-6">
+          <div class="col-sm-0">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Listado</li>
+              <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+              <li class="breadcrumb-item active">Inf.</li>
             </ol>
           </div>
         </div>
@@ -66,7 +66,8 @@ if(isset($_SESSION['rl'])){
     </section>
 
     <!-- Main content -->
-
+    <?php if($objTools->userAuthorizad($_SESSION['rl'], 1) || $objTools->userAuthorizad($_SESSION['rl'], 2)){
+                              ?>
   <?php
     $objDB = new ExtraerDatos();
 
@@ -77,12 +78,27 @@ if(isset($_SESSION['rl'])){
       //filtramos coincidencia
        
      }elseif(isset($_POST["txtBuscar"])){
+
       $prods = $objDB->usuariosDetalle($_POST["txtBuscar"]);}
 
      else{$prods = $objDB->listadoProductos();}
       //traemos todo
       
-  ?>
+    }else{
+      $objDB = new ExtraerDatos();
+
+      $prods = array();
+      
+      if(isset($_SESSION['id'])){ //se filtro algo
+        $prods = $objDB->productosDetalles($_SESSION['id']); //filtramos coincidencia
+        //filtramos coincidencia
+      }
+      }
+        ?>
+
+
+
+
     <section class="content">
       <!-- ZONA ENCABEZADO DE IMPRESION SOLAMENTE -->
       <div class="row d-none d-print-block"><!-- fila contenedora -->
@@ -97,7 +113,8 @@ if(isset($_SESSION['rl'])){
         
         </div> <!-- ./ fin col -->
       </div><!-- ./ fin row -->
-
+      <?php if($objTools->userAuthorizad($_SESSION['rl'], 1) || $objTools->userAuthorizad($_SESSION['rl'], 2)){
+      ?>
       <div class="row d-print-none"><!-- fila contenedora -->
         <div class="col-md-12"> <!-- fin columna de contenido -->
         <form name="frm_filtro" id="frm_filtro" method="POST" action="productos_informes.php">
@@ -123,11 +140,11 @@ if(isset($_SESSION['rl'])){
           </form>
         </div> <!-- ./ fin col -->
       </div><!-- ./ fin row -->
-
+      <?php }?>
          <!-- COLUMNA DE TABLA DE DATOS  -->
         
               <div class="btn btn-info col-md-12">
-                <h3 class="card-title">Datos en Tabla</h3>
+                <h3 class="card-title">Datos Registrados</h3>
                 <a  href="#" id="btn_print" class=" float-right d-print-none b-white "><i class="fa fa-print"></i>IMPRIMIR</a>
               </div>
 
@@ -179,7 +196,9 @@ if(isset($_SESSION['rl'])){
                                 <td style="width: 10%"><a href="productos_eliminar.php?cp=<?php echo $rows['cod']; ?>" class="bnt btn-xs btn-danger"><i class="fa fa-trash"> ELIMINAR</i></a> </td>  
 
                                 <?php }?>
-                                        
+
+                                  <td><span class="badge badge-success">RESUELTO</span></td>
+            
                             </thead>
                                   
                           </table>

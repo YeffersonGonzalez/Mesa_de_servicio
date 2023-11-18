@@ -143,7 +143,7 @@ if(isset($_SESSION['rl'])){
                               <td style="width: 12%">${libro.categoria}</td>
                               <td style="width: 24%">${libro.descrip}</td>
 
-                              <td style="width: 10%">${libro.estado}</td>
+                              <td style="width: 10%"><span class="badge badge-success">${libro.estado}</span></td>
 
                               
                               <td style="width: 10%"">

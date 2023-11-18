@@ -76,6 +76,21 @@ class ExtraerDatos extends ConsultasDB
 		$lista = $this->consulta_generales($sql);	
 		return $lista;
 	}
+	
+
+
+	function listadoUsuario($start=0, $regsCant = 0){
+		$sql = "SELECT * FROM usuario";
+		if ($regsCant > 0 )
+			 $sql = "SELECT * from usuario $start,$regsCant";
+		$lista = $this->consulta_generales($sql);	
+		return $lista;
+	}
+	function usuarioDetalle($idu){
+		$sql = "SELECT * from usuario where id=$idu ";
+		$lista = $this->consulta_generales($sql);	
+		return $lista;
+	}
 
 }//fin CLASE
 
