@@ -86,10 +86,40 @@ if(isset($_SESSION['rl']))
             
             
             <!-- Para controles de formularios siempre usar etiqueta FORM -->
-            
-                  
-        <form role="form" name="frm_registrar" id="frm_registrar" method="POST" enctype="multipart/form-data">
-          <div class="row card2">
+            <script>
+                function enviarDatos() {
+                var ced = document.getElementById('ced').value;
+                var nom = document.getElementById('nom').value;
+                var dir = document.getElementById('dir').value;
+                var tel = document.getElementById('tel').value;
+
+                var data = {
+                    ced: ced,
+                    nom: nom,
+                    dir: dir,
+                    tel: tel
+                };
+
+                fetch('http://localhost/web_electiva_II_BASE/api/clientesCrear.php', {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+                }
+                </script>
+
+              
+            <form role="form" name="frm_registrar" id="frm_registrar" method="POST"  enctype="multipart/form-data">
+                <div class="row card2">
                   <div class="col-md-6 col-sm-6 col-6">
                     <div class="form-group">
                       
@@ -122,157 +152,19 @@ if(isset($_SESSION['rl']))
                     </div> 
                   </div> 
 
-            <div class="input-group mb-3 col-md-6 col-sm-6 col-6">
-
-              <input required type="text" class="form-control" id="user" name="user" placeholder="User">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-user"></span>
-                  </div>
-                </div>
-              </div>
-           
-              <div class="input-group mb-3 col-md-6 col-sm-6 col-6">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-envelope"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3 col-md-6 col-sm-6 col-6">
-                <input required type="password" class="form-control" id="pass" name="pass"  placeholder="Password">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
-                  </div>
-                </div>
-              </div>
-              <div class="input-group mb-3 col-md-6 col-sm-6 col-6">
-                <input required type="password" class="form-control" id="txt_clave_repetida" name="txt_clave_repetida"  placeholder="Repetir password">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
-                  </div>
-                </div>
-              </div>
-              
-              <div class=" mb-3 col-md-6 col-sm-6 col-6">
-                
-              <div class="form-group">  
-
-                  <div class="input-group-append">
-                    <select class="form-control" name="rol" id="rol">
-                        <option value="3">Usuario</option>
-                        <option value="2">Admin N-2</option>
-                        <option value="1">Admin N-1</option>           
-                    </select>
-                    <div class="input-group-text"> 
-                      <span class="fas fa-user"></span>
-                    </div>
-                 </div>
-                      
-                   </div> 
-              </div>
-            
-                
                 <!-- /.col -->
                 <div class="col-2">
                   
                 </div>
                 <div class="col-4">
-                  <button type="submit" class="boton btn-block ">Registrar</button>
+                  <button type="submit" onclick="enviarDatos()"  class="boton btn-block ">Registrar</button>
                 </div>
                 <!-- /.col -->
               </div>
 
           </form>
          
-          <script>
-            document.getElementById('frm_registrar').addEventListener('submit', function(event) {
-              var clave = document.getElementById('pass').value;
-              var claveRepeat = document.getElementById('txt_clave_repetida').value;
-              var formulario = document.getElementById('frm_registrar');
-              if (!formulario.checkValidity()) {
-                // Si el formulario no es válido, mostrar un mensaje de error y salir de la función
-                alert('Por favor, llena todos los campos requeridos.');
-                event.preventDefault();
-              }
-              if (clave !== claveRepeat) {
-                alert('Las contraseñas no coinciden');
-                event.preventDefault();
-              }
-               //Para guardar los datos
-                var ced = document.getElementById('ced').value;
-                var nom = document.getElementById('nom').value;
-                var dir = document.getElementById('dir').value;
-                var tel = document.getElementById('tel').value;
-                //Servicio
-                var user = document.getElementById('user').value;
-                var email = document.getElementById('email').value;
-                var pass = document.getElementById('pass').value;
-                var rol = document.getElementById('rol').value;
-               
-
-                var data = {
-                  ced: ced,
-                  nom: nom,
-                  dir: dir,
-                  tel: tel
-                };
-                var dataP = {
-                  user: user,
-                  email: email,
-                  pass: pass,
-                  rol: rol
-                };
-
-                fetch('http://localhost/web_electiva_II_BASE/api/clientesCrear.php', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(data),
-                  
-                })
-                .then(response => response.json())
-                .then(data => {
-                  console.log('Success:', data);
-                })
-                .catch((error) => {
-                            console.error('Error:', error);
-                });
-
-                
-                fetch('http://localhost/web_electiva_II_BASE/api/usuarioCrear.php', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(dataP),
-                  
-                })
-                .then(response => response.json())
-                .then(dataP => {
-                  console.log('Success:', dataP);
-                })
-                .catch((error) => {
-                            console.error('Error:', error);
-                });
-             
-              
-              });
-          </script>
-          <?php 
-            // Obtén la contraseña del formulario
-            $password = $_POST['pass'];
-
-            $passcrit = sha1($password);
-
-            ?>
-       
-
-
+   
       
         </div>
 

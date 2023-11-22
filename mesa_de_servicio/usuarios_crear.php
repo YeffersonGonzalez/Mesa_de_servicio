@@ -2,46 +2,54 @@
 <html>
 <body>
 
-<h2>Formulario de creación de usuario</h2>
+<h2>Formulario de Cliente</h2>
 
-<form id="myForm">
-  <label for="user">Usuario:</label><br>
-  <input type="text" id="user" name="user"><br>
-  <label for="pass">Contraseña:</label><br>
-  <input type="password" id="pass" name="pass"><br>
-  <label for="correo">Correo:</label><br>
-  <input type="email" id="correo" name="correo"><br>
-  <label for="rol">Rol:</label><br>
-  <input type="text" id="rol" name="rol"><br>
-  <input type="button" value="Enviar" onclick="crearUsuario()">
-</form> 
+<form id="clienteForm" method="POST">
+  <label for="ced">Cédula:</label><br>
+  <input type="text" id="ced" name="ced"><br>
+  <label for="nom">Nombre:</label><br>
+  <input type="text" id="nom" name="nom"><br>
+  <label for="dir">Dirección:</label><br>
+  <input type="text" id="dir" name="dir"><br>
+  <label for="tel">Teléfono:</label><br>
+  <input type="text" id="tel" name="tel"><br>
+  <input type="submit" value="Enviar">
+</form>
 
-<script>
-function crearUsuario() {
-    let datos = {
-        user: document.getElementById('user').value,
-        pass: document.getElementById('pass').value,
-        correo: document.getElementById('correo').value,
-        rol: document.getElementById('rol').value
-    };
+  <script>
+      document.querySelector('#clienteForm').addEventListener('submit', function(evento) {
 
-    fetch('http://localhost/web_electiva_II_BASE/api/usuario_api.php', {
+      evento.preventDefault();
+
+      var ced = document.getElementById('ced').value;
+      var nom = document.getElementById('nom').value;
+      var dir = document.getElementById('dir').value;
+      var tel = document.getElementById('tel').value;
+
+      var data = {
+        ced: ced,
+        nom: nom,
+        dir: dir,
+        tel: tel
+      };
+
+      fetch('http://localhost/web_electiva_II_BASE/api/clientesCrear.php', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(datos),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Éxito:', data);
-    })
-    .catch((error) => {
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
         console.error('Error:', error);
-    });
-}
+      });
+      });
 
-</script>
 
+  </script>
 </body>
 </html>

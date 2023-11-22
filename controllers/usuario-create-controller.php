@@ -18,18 +18,19 @@ class DBOperations extends DBConfig {
 /**
 * IMPLEMENTACION DE ACCESO A CONSULTAS PARA PROTEGER MAS LA VISTA
 */
-class clientesCreateController extends DBOperations
+class usuarioCreateController extends DBOperations
 {
 	
-	function saveClientes($data){
-		//$hash = password_hash($contra, PASSWORD_DEFAULT);
+	function saveUsuario($data){
+		$hash = sha1($data["pass"]);
         $ejecucion = $this->dbOperaciones("
-				INSERT INTO cliente(cedula, nombre, direccion, telefono) 
-                values(".$data["ced"].", '".$data["nom"]."', '".$data["dir"]."', ".$data["tel"]." ) ");
+				INSERT INTO usuario(user, pass, correo, rol) 
+                values('".$data["user"]."', '".$hash."', '".$data["email"]."', '".$data["rol"]."' ) ");
 		return $ejecucion;												   		
 	}
-	
-}//fin CLASE
+}
+
+//fin CLASE
 
 
 

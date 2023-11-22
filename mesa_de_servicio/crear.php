@@ -95,6 +95,7 @@ if(isset($_SESSION['rl']))
               $direcc = $_POST["txt_direc"]; 
               $tele = $_POST["txt_Tele"];
               $refer = $_POST["txt_refer"];
+              
               $descr = $_POST["txt_Descri"];
               $canti = $_POST["txt_cantEx"];
               $tipo = $_POST["tipoPC"];

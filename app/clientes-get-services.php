@@ -26,8 +26,6 @@
                         "name" => $row["nombre"],
                         "addr" => $row["direccion"],
                         "phone" => $row["telefono"],
-                        "what" => $row["whatsapp"],
-                        "datec" => $row["datecreacion"]
                     );
                     array_push($clientes["data"], $item);  //  montamos el array temporal en JSON            
                 }
