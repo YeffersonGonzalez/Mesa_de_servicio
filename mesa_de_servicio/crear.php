@@ -82,86 +82,9 @@ if(isset($_SESSION['rl']))
               <h4 >Crear nuevo Servicio </h4>
             </div>
             <div class="card">
-            
-            
-            
-            <!-- Para controles de formularios siempre usar etiqueta FORM -->
-
-            <?php 
-            if(isset($_POST["txt_refer"])){//verificar la existencia de envio de datos
-
-              $cedu = $_POST["txt_cc"];
-              $nombre = $_POST["txt_Nombre"];
-              $direcc = $_POST["txt_direc"]; 
-              $tele = $_POST["txt_Tele"];
-              $refer = $_POST["txt_refer"];
+       
               
-              $descr = $_POST["txt_Descri"];
-              $canti = $_POST["txt_cantEx"];
-              $tipo = $_POST["tipoPC"];
-              $tipoP = $_POST["tipoPa"];
-              $tipoA = $_POST["tipoAl"];
-              $tipoR = $_POST["tipoRam"];
-              $vlrcm = $_POST["txt_vlrCom"];   
-              $idusu = $_SESSION['id'];  
-
-              //Verificamos que el usuario halla seleccionado archivos
-              //y se procede a subir al servidor y elazarlo a la base de datos    
-              $ext =""; $msgfile = ""; $logError="";
-              if(isset($_FILES["txt_File"]['name']) && $_FILES["txt_File"]['name']!=null ){           
-                $extens = array('.jpeg'=>'JPEG','.JPEG'=>'JPEG','.jpg' => 'JPG', '.png' => 'PNG', '.JPG' => 'JPG', '.PNG' => 'PNG');
-                $ext = strrchr(basename($_FILES["txt_File"]['name']),".");        
-                if($extens[$ext]){            
-                  if($_FILES["txt_File"]['error'] == UPLOAD_ERR_OK ){ //Si el archivo se paso correctamente Continuamos 
-                    $docruta = "imgs/productos/";
-                    $postname = date("Y").date("m").date("d")."_".date("H").date("i");
-                    $fullname = explode(".",basename($_FILES["txt_File"]['name'])); // variabe temporal para sacar el nombre y separarlo de la extension
-                    $NombreOriginal = $fullname[0];//Obtenemos el nombre original del archivo
-                    $temporal = $_FILES["txt_File"]['tmp_name']; //Obtenemos la ruta Original del archivo
-                    $Destino = "../".$docruta.$NombreOriginal."_".$postname.$ext; //Creamos una ruta de destino con la variable ruta y el nombre original del archivo 
-                    $docruta = $docruta.$NombreOriginal."_".$postname.$ext; //Esto se guarda en el campo imagend e la base de dato
-                    if(copy($temporal, $Destino)){ //Movemos el archivo temporal a la ruta especificada               
-                      $msgfile = "Imagen subida.";
-                    }else{
-                      $msgfile .= "<span class='label label-danger'>la imagen del Producto .</span>";
-                      $logError = "No se pudo subir la imagen del Producto, puede ser por tamaño. \n";
-                    }  
-                  }else{
-                    $msgfile .= "<span class='label label-danger'>Error al transferirse el archivo.</span> ";
-                  }
-
-                }else{
-                  $msgfile .= "<span class='label label-danger'><i class='fa fa-file-o'></i> Por seguridad se bloqueo el envío del archivo con extension no permitida [$ext].</span>"  ;  
-                  $logError .="Por seguridad se bloqueo el envío del archivo con extension no permitida [$ext]. \n";
-                } 
-              }
-
-              //echo $msgfile;
-
-              $objDBO = new DBConfig();
-              $objDBO->config();
-              $objDBO->conexion();
-
-              $ejecucion = $objDBO->Operaciones("INSERT INTO cliente(cedula, nombre, direccion, telefono) 
-                                                             values('$cedu','$nombre', '$direcc', '$tele')  ");
-              $ejecucion = $objDBO->Operaciones("INSERT INTO producto(referencia, descripcion, cantidad, valorcomercial, tipoPC, pantalla, discoduro, ram, id) 
-                                                                values('$refer', '$descr', $canti, $vlrcm,'$tipo','$tipoP','$tipoA','$tipoR','$idusu' )  ");
-
-              if($ejecucion){ // Tod se ejecuto correctamente
-                echo "<div class='alert alert-success'>
-                         ha sido creado correctamente
-                      </div>";
-              }else{ // Algo paso mal
-                echo "<div class='alert alert-danger'>
-                         Ha ocurrido un error inexperado
-                      </div>";
-              }
-
-              $objDBO->close();
-            }
-            ?>
-              
-            <form role="form" name="frm_crear" id="frm_crear" method="POST" action="crear.php" enctype="multipart/form-data">
+            <form role="form" name="frm_crear" id="frm_crear" method="POST" enctype="multipart/form-data">
               <div class="card-body">
 
                 <div class="row">
@@ -170,16 +93,16 @@ if(isset($_SESSION['rl']))
                  ?>
                   <div class="col-md-12 col-sm-12 col-12">
                     <div class="form-group">
-                      <label for="txt_cc">Cedula</label>
-                      <input type="Number" class="form-control" id="txt_cc" name="txt_cc" placeholder="Cedula">
+                      <label for="ced">Cedula</label>
+                      <input type="Number" class="form-control" id="ced" name="ced" placeholder="Cedula">
                     </div> 
                   </div>  
 
                   <!-- Control Inputbox ejemplo -->
                   <div class="col-md-12 col-sm-12 col-12">
                     <div class="form-group">
-                      <label for="txt_Nombre">Nombre y Apellido</label>
-                      <input type="text" class="form-control" id="txt_Nombre" name="txt_Nombre" placeholder="Nombre y Apellido">
+                      <label for="nom">Nombre y Apellido</label>
+                      <input type="text" class="form-control" id="nom" name="nom" placeholder="Nombre y Apellido">
                     </div> 
                   </div>  
                               
@@ -187,16 +110,16 @@ if(isset($_SESSION['rl']))
                  <!-- Control cantidad  -->
                   <div class="col-md-6 col-sm-6 col-12">
                     <div class="form-group">
-                      <label for="txt_direc">Direccion</label>
-                      <input type="text" class="form-control" id="txt_direc" name="txt_direc" placeholder="Direccion">
+                      <label for="dir">Direccion</label>
+                      <input type="text" class="form-control" id="dir" name="dir" placeholder="Direccion">
                     </div> 
                   </div> 
 
                   <!-- Control VALOR -->
                   <div class="col-md-6 col-sm-6 col-12">
                     <div class="form-group">
-                      <label for="txt_Tele">Telefono</label>
-                      <input type="Number" class="form-control" id="txt_Tele" name="txt_Tele" placeholder="Telefono">
+                      <label for="tel">Telefono</label>
+                      <input type="Number" class="form-control" id="tel" name="tel" placeholder="Telefono">
                     </div> 
                   </div> 
                   <?php }?>
@@ -205,8 +128,8 @@ if(isset($_SESSION['rl']))
                               ?>
                   <div class="col-md-6 col-sm-6 col-12">
                     <div class="form-group">
-                      <label for="txt_refer">Referencia</label>
-                      <input type="text" class="form-control" id="txt_refer" name="txt_refer" placeholder="Referencia">
+                      <label for="refer">Referencia</label>
+                      <input type="text" class="form-control" id="refer" name="refer" placeholder="Referencia">
                     </div> 
                   </div>
                   <div class="col-md-6 col-sm-6 col-12">
@@ -261,63 +184,23 @@ if(isset($_SESSION['rl']))
                   
                   <div class="col-md-6 col-sm-6 col-12">
                     <div class="form-group">
-                      <label for="txt_cantEx">Cantidad</label>
-                      <input type="Number" class="form-control" id="txt_cantEx" name="txt_cantEx" placeholder="">
+                      <label for="cant">Cantidad</label>
+                      <input type="Number" class="form-control" id="cant" name="cant" placeholder="">
                     </div> 
                   </div>
                   <div class="col-md-6 col-sm-6 col-12">                    
                     <div class="form-group">
-                      <label for="txt_Descri">Descripción y Datos adicionales</label>
-                      <textarea class="form-control" rows="3"  placeholder="Describa..." name="txt_Descri" id="txt_Descri"></textarea>
+                      <label for="descri">Descripción y Datos adicionales</label>
+                      <textarea class="form-control" rows="3"  placeholder="Describa..." name="descri" id="descri"></textarea>
                     </div>  
                   </div> 
                   <div class="col-md-6 col-sm-6 col-12">
                     <div class="form-group">
-                      <label for="txt_vlrCom">Valor Consulta</label>
-                      <input type="Number" class="form-control" id="txt_vlrCom" name="txt_vlrCom" placeholder="">
+                      <label for="vlrCom">Valor Consulta</label>
+                      <input type="Number" class="form-control" id="vlrCom" name="vlrCom" placeholder="">
                     </div> 
                   </div>
-                  <!--<div class="col-md-12 col-sm-12 col-12">
-                    <div class="form-group">
-                      <label >Seleccines las que corresponda</label>
-                      <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="chkDisp1" name="chkDisp1" >
-                        <label for="chkDisp1" class="custom-control-label">15</label>
-                      </div>
-                      <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="chkDisp1" name="chkDisp1" >
-                        <label for="chkDisp1" class="custom-control-label">Victima del coflicto armado</label>
-                      </div>
-                      <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="chkDisp1" name="chkDisp1" >
-                        <label for="chkDisp1" class="custom-control-label">EPS</label>
-                      </div>
-                      <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="chkDisp2" name="chkDisp2" >
-                        <label for="chkDisp2" class="custom-control-label">Condicion especial</label>
-                      </div> 
-                      <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="chkDisp2" name="chkDisp2" >
-                        <label for="chkDisp2" class="custom-control-label">Alergias</label>
-                      </div>                                   
-                    </div>
-                  </div>-->
-
-             
-                  <!-- Control FileUpload ejemplo                
-                  <div class="col-md- col-sm-12 col-12">
-                    <div class="form-group">
-                      <label for="txtFile">Subir Foto</label>
-                      <div class="input-group">
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="txt_File" name="txt_File">
-                          <label class="custom-file-label" for="txt_File">Seleccionar</label>
-                        </div>                    
-                      </div>
-                    </div>
-                  </div>--> 
-
-
+           
                 </div>  <!-- /.fin row -->   
                 
               </div>  <!-- /.fin card-body -->
@@ -330,18 +213,97 @@ if(isset($_SESSION['rl']))
               </div>
 
             </form> <!-- /.fin Form -->
-           
-         
-          
           </div>
 
       </div>
       <?php }?>
+           
       
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  <script>
+            document.getElementById('frm_crear').addEventListener('submit', function(event) {
+              
+              var formulario = document.getElementById('frm_crear');
+              if (!formulario.checkValidity()) {
+                // Si el formulario no es válido, mostrar un mensaje de error y salir de la función
+                alert('Por favor, llena todos los campos requeridos.');
+                event.preventDefault();
+              }
+            
+               //Para guardar los datos
+                var ced = document.getElementById('ced').value;
+                var nom = document.getElementById('nom').value;
+                var dir = document.getElementById('dir').value;
+                var tel = document.getElementById('tel').value;
+                //Servicio
+                var refer = document.getElementById('refer').value;
+                var tipoPC = document.getElementById('tipoPC').value;
+                var tipoPa = document.getElementById('tipoPa').value;
+                var tipoAl = document.getElementById('tipoAl').value;
+                var tipoRam = document.getElementById('tipoRam').value;
+                var cant = document.getElementById('cant').value;
+                var descri = document.getElementById('descri').value;
+                var vlrCom = document.getElementById('vlrCom').value;
+               
+
+                var data = {
+                  ced: ced,
+                  nom: nom,
+                  dir: dir,
+                  tel: tel
+                  
+                };
+                var dataP = {
+                 refer : refer,
+                 tipoPC: tipoPC,
+                 tipoPa: tipoPa,
+                 tipoAl: tipoAl,
+                 tipoRam:tipoRam,
+                 cant  : cant,
+                 descri: descri,
+                 vlrCom: vlrCom
+                 
+               };
+
+                fetch('http://localhost/web_electiva_II_BASE/api/clientesCrear.php', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(data),
+                  
+                })
+                .then(response => response.json())
+                .then(data => {
+                  console.log('Success:', data);
+                })
+                .catch((error) => {
+                            console.error('Error:', error);
+                });
+
+                
+                fetch('http://localhost/web_electiva_II_BASE/api/productoCreate.php', {
+                  method: 'POST',
+                 headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(dataP),
+                  
+                })
+               .then(response => response.json())
+                .then(dataP => {
+                  console.log('Success:', dataP);
+               })
+               .catch((error) => {
+                            console.error('Error:', error);
+                });
+             
+              
+              });
+          </script>
 
   <footer class="main-footer">
     <?php 

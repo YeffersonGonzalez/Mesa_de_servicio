@@ -263,17 +263,7 @@ if(isset($_SESSION['rl']))
               
               });
           </script>
-          <?php 
-            // Obtén la contraseña del formulario
-            $password = $_POST['pass'];
-
-            $passcrit = sha1($password);
-
-            ?>
        
-
-
-      
         </div>
 
       </div>
